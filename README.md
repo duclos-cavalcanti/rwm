@@ -3,7 +3,7 @@
   simple x window manager
 </p>
 
-A empty C project template using CMake.
+WIP!
 
 ## Installation
 ```
