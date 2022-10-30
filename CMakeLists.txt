@@ -1,6 +1,5 @@
 cmake_minimum_required(VERSION 3.4 FATAL_ERROR)
-
-project(foo)
+project(rwm)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin)
@@ -36,7 +35,7 @@ set(PROJECT_INCLUDES
     ${PROJECT_SOURCE_DIR}/lib/include
 )
 
-add_executable(bar ${PROJECT_SOURCES})
+add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
 
 set_property(DIRECTORY PROPERTY ADDITIONAL_CLEAN_FILES
     "${PROJECT_SOURCE_DIR}/build/CMakeFiles"
@@ -47,5 +46,16 @@ set_property(DIRECTORY PROPERTY ADDITIONAL_CLEAN_FILES
     # "${PROJECT_SOURCE_DIR}/build/compile_commands.json"
 )
 
-include(debug)
-include(run)
+add_custom_target("debug"
+    COMMENT "Debugging with GDB"
+    DEPENDS ${PROJECT_NAME}
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+    COMMAND gdb -tui bin/${PROJECT_NAME}
+)
+
+add_custom_target("run"
+    COMMENT "Running Program"
+    DEPENDS ${PROJECT_NAME}
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+    COMMAND ./run.sh
+)
