@@ -7,7 +7,7 @@ WIP!
 
 ## Installation
 ```
-TODO
+sudo pacman -S libx11
 ```
 
 ## Usage
@@ -22,9 +22,12 @@ This project is released under the GNU General Public License 3.0. See [LICENSE]
 Please follow the instructions in the contributions guide at [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Thanks
-- [devoidwm](https://github.com/murtaza-u/devoidwm)
 - [tinywm](http://incise.org/tinywm.html)
 - [sowm](https://github.com/dylanaraps/sowm)
+
+## Documentation
+- [X Window System](https://x.org/releases/current/doc/libX11/libX11/libX11.html#Overview_of_the_X_Window_System)
+- [X11 Protocol](https://x.org/releases/current/doc/xproto/x11protocol.html#Protocol_Formats)
 
 ## Donations
 I have a ko-fi and a buy-me-a-coffee account, so if you found this repo useful and would like to show your appreciation, feel free to do so!
