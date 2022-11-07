@@ -1,11 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 #include "main.h"
 #include "window.h"
 #include "wm.h"
 
-window_manager_t* wm = { 0 };
+static window_manager_t* wm = { 0 };
+
+static bool WM_FOUND = false;
 
 int detect() {
     XSetErrorHandler(&on_wm_found);
@@ -32,7 +35,7 @@ int start() {
 }
 
 void run() {
-    if (detect(wm)) goto leave;
+    if (detect()) goto leave;
     XSetErrorHandler(&on_x_error);
 
     while(1) {
@@ -44,7 +47,7 @@ void run() {
                 break;
 
             case ConfigureNotify:
-                on_configure_notify(wm, &e.xconfigure);
+                on_configure_request(wm, &e.xconfigure);
 
             default:
                 break;
