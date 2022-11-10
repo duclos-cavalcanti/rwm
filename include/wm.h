@@ -9,6 +9,7 @@
 typedef struct window_manager {
     Display* dpy;
     window_t* root;
+    wlist_t* clients;
 } window_manager_t;
 
 int on_wm_found(Display* d, XErrorEvent* e, bool* WM_FOUND);

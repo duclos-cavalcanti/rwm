@@ -35,25 +35,26 @@ int start() {
 }
 
 void run() {
-    if (detect()) goto leave;
+    if (detect()) return;
     XSetErrorHandler(&on_x_error);
 
     while(1) {
         XEvent e;
         XNextEvent(wm->dpy, &e);
+
         switch(e.type) {
             case CreateNotify:
                 on_create_notify(wm, &e.xcreatewindow);
                 break;
 
             case ConfigureNotify:
-                on_configure_request(wm, &e.xconfigure);
+                on_configure_request(wm, &e.xconfigurerequest);
 
             default:
                 break;
         }
     }
-leave:
+
     return;
 }
 
