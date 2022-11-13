@@ -22,7 +22,7 @@ This project is released under the GNU General Public License 3.0. See [LICENSE]
 Please follow the instructions in the contributions guide at [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Thanks
-- [tinywm](http://incise.org/tinywm.html)
+- [dwm](https://dwm.suckless.org/tutorial/)
 - [sowm](https://github.com/dylanaraps/sowm)
 
 ## Documentation
