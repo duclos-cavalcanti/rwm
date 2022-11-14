@@ -20,7 +20,7 @@ wnode_t* new_node(Window* w) {
     return ret;
 }
 
-void insert_node(wlist_t* wl, Window* w) {
+void insert_window(wlist_t* wl, Window* w) {
     wnode_t* n = new_node(w);
     if (is_empty(wl)) {
         wl->head = n;
@@ -43,3 +43,14 @@ wlist_t* new_list() {
     return ret;
 }
 
+wnode_t* find_window(wlist_t* wl, Window* win) {
+    if (is_empty(wl)) {
+        return NULL;
+    } else {
+        wnode_t* it;
+        for (it=wl->head; it; it=it->next)
+            if (it->w->win == *win)
+                return it;
+        return NULL;
+    }
+}

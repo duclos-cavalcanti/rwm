@@ -13,6 +13,7 @@ typedef struct wlist {
 } wlist_t;
 
 wlist_t* new_list();
-void insert_node(wlist_t* wl, Window* w);
+void insert_window(wlist_t* wl, Window* w);
+wnode_t* find_window(wlist_t* wl, Window* win);
 
 #endif /* __WLIST__H */
