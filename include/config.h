@@ -3,12 +3,6 @@
 
 #include "main.h"
 
-typedef struct config {
-    unsigned int border_width;
-    unsigned long border_color;
-    unsigned long bg_color;
-} config_t;
-
 config_t config_def = {
     .border_width = 2,
     .border_color = 0xff0000,
