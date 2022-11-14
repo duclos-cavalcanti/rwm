@@ -23,6 +23,7 @@ Please follow the instructions in the contributions guide at [CONTRIBUTING.md](C
 
 ## Thanks
 - [dwm](https://dwm.suckless.org/tutorial/)
+- [herbstluftwm](https://github.com/herbstluftwm/herbstluftwm)
 - [sowm](https://github.com/dylanaraps/sowm)
 
 ## Documentation
