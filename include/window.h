@@ -1,24 +1,16 @@
 #ifndef __WINDOW__H
 #define __WINDOW__H
 
-#include "wm.h"
+#include "main.h"
+#include <stdboo.h>
 
 typedef struct window {
     Window win;
     int x, y;
     unsigned int width, height;
-    unsigned int layout;
+    bool is_floating, is_tiled;
 } window_t;
 
-typedef struct wnode {
-    window_t* w;
-    window_t* next;
-} wnode_t;
-
-typedef struct wlist {
-    wnode_t* head;
-} wlist_t;
-
-int frame_window(window_manager_t* wm, window_t* w);
+window_t* new_window(Window* w);
 
 #endif /* __WINDOW__H */

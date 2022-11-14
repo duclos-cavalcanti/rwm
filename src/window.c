@@ -1,19 +1,12 @@
 #include "window.h"
 
-#include "config.h"
+window_t* new_window(Window* w) {
+    window_t* ret = (window_t*) calloc(1, sizeof(window_t));
+    if (!ret) {
+        fprintf(stderr, "Creating window struct failed!\n");
+        exit(EXIT_FAILURE);
+    }
 
-int frame_window(window_manager_t* wm, window_t* w) {
-    XWindowAttributes xattr;
-    XGetWindowAttributes(wm->dpy, w->win, &xattr);
-
-    Window fr = XCreateSimpleWindow(wm->dpy, wm->root->win, xattr.x,
-                                                            xattr.y,
-                                                            xattr.width,
-                                                            xattr.height,
-                                                            config_def.border_width,
-                                                            config_def.border_color,
-                                                            config_def.bg_color);
-
-    return 0;
+    ret->win = (*w);
+    return ret;
 }
-
