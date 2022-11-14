@@ -5,20 +5,24 @@
 #include "main.h"
 #include "window.h"
 #include "wm.h"
+#include "util.h"
 
 static window_manager_t* wm = { 0 };
 
-static bool WM_FOUND = false;
+#define MAX_ERROR_TEXT_LENGTH 1024
+int xerror(Display* d, XErrorEvent* e) {
+    char err[MAX_ERROR_TEXT_LENGTH] = { 0 };
 
-int detect() {
-    XSetErrorHandler(&on_wm_found);
-    XSelectInput(wm->dpy,
-                 wm->root->win,
-                 SubstructureRedirectMask |
-                 SubstructureNotifyMask);
-    XSync(wm->dpy, false);
+    XGetErrorText(d, e->error_code, err, sizeof(err));
+    printf("Received X Error:\n"
+           "\tRequest: %d\n"
+           "\tResource ID: %d\n"
+           "\tError code: %d - %s\n",
+           (int) e->request_code,
+           (int) e->resourceid,
+           (int) e->error_code,
+           err);
 
-    if (WM_FOUND) return 1;
     return 0;
 }
 
@@ -30,29 +34,23 @@ int start() {
         return EXIT_FAILURE;
     }
 
+    wm->clients = new_list();
     wm->root->win = DefaultRootWindow(wm->dpy);
+    wm->width = XDisplayWidth(wm->dpy, DefaultScreen(wm->dpy));
+    wm->height = XDisplayHeight(wm->dpy, DefaultScreen(wm->dpy));
+    wm->running = true;
+
     return 0;
 }
 
 void run() {
-    if (detect()) return;
-    XSetErrorHandler(&on_x_error);
+    if (detect_wm()) return;
+    XSetErrorHandler(&xerror);
 
-    while(1) {
+    while(1 && wm->running) {
         XEvent e;
         XNextEvent(wm->dpy, &e);
-
-        switch(e.type) {
-            case CreateNotify:
-                on_create_notify(wm, &e.xcreatewindow);
-                break;
-
-            case ConfigureNotify:
-                on_configure_request(wm, &e.xconfigurerequest);
-
-            default:
-                break;
-        }
+        process_event(wm, &e);
     }
 
     return;
